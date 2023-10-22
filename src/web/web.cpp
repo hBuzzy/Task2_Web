@@ -17,7 +17,7 @@ void Web::Draw(QPainter& painter, const QPoint& cursor_pos) {
     painter.drawLine({boundingRect_.left(), center_y}, cursor_pos);
     painter.drawLine({boundingRect_.right(), center_y}, cursor_pos);
 
-    painter.drawEllipse(QRect(
+    painter.drawPolygon(QRect(
         (boundingRect_.topLeft() + cursor_pos) / 2,
         (boundingRect_.bottomRight() + cursor_pos) / 2
     ));

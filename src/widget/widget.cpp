@@ -46,9 +46,9 @@ void Widget::paintEvent(QPaintEvent* event) {
 }
 
 QPoint Widget::KeepCursorInsideWindow(const QPoint& pos) {
-    auto wnd_rect = rect();
+    auto wndRect = rect();
     return mapToGlobal(QPoint(
-        qBound(wnd_rect.left(), pos.x(), wnd_rect.right()),
-        qBound(wnd_rect.top(), pos.y(), wnd_rect.bottom())
+        qBound(wndRect.left(), pos.x(), wndRect.right()),
+        qBound(wndRect.top(), pos.y(), wndRect.bottom())
     ));
 }
