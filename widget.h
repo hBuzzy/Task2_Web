@@ -7,19 +7,16 @@
 #include <QtMath>
 #include <QPen>
 
+#include "web.h"
+
 class Widget : public QWidget {
     Q_OBJECT
 public:
     Widget(QWidget *parent = nullptr);
     ~Widget();
-    void mousePressEvent(QMouseEvent *event);
-    void mouseReleaseEvent(QMouseEvent *event);
-    void mouseMoveEvent(QMouseEvent *event);
-    void paintEvent(QPaintEvent *event);
-    void KeepCursorInWidget();
 
-    QPoint CenterPoint_;
-    bool BoolDrawing_ = false;
-    int RadiusCircle_ = 50;
+private:
+    Web *web;
+
 };
 #endif  // WIDGET_H

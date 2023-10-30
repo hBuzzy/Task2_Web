@@ -1,14 +1,25 @@
 #ifndef WEB_H
 #define WEB_H
 
-#include <QObject>
+#include <QWidget>
 
-class Web : public QObject {
+class Web : public QWidget {
   Q_OBJECT
- public:
-  explicit Web(QObject *parent = nullptr);
+public:
+    explicit Web(QWidget *parent = nullptr);
+    const int webRadius_ = 50;
 
- signals:
+protected:
+    void paintEvent(QPaintEvent *event);
+    void mousePressEvent(QMouseEvent *event);
+    void mouseReleaseEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
+
+private:
+    QPoint centerPoint_;
+    bool isWebDrawing_ = false;
+
+    void keepCursorInWidget();
 };
 
 #endif  // WEB_H
