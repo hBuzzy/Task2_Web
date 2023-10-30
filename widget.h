@@ -9,7 +9,7 @@ class Widget : public QWidget {
   Q_OBJECT
 
  public:
-  Widget(QWidget *parent = nullptr);
+  Widget(int lag = 500, QWidget *parent = nullptr);
   ~Widget();
 
  public:
@@ -32,5 +32,6 @@ class Widget : public QWidget {
 
   bool isDrawingWeb_;
   int currentLineIndex_;
+  int lag_;
 };
 #endif  // WIDGET_H

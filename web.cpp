@@ -27,16 +27,15 @@ void Web::SetWeb(const QRect &windowRect, const QPoint &cursorPosition) {
     for (int i = 0; i < baseWebLines.size(); i++) {
       float fraction = static_cast<float>(k) / innerSegments;
 
-      QPoint midPoint1(baseWebLines[i].p1() +
-                       fraction *
-                           (baseWebLines[i].p2() - baseWebLines[i].p1()));
+      QPoint point1(baseWebLines[i].p1() +
+                    fraction * (baseWebLines[i].p2() - baseWebLines[i].p1()));
 
-      QPoint midPoint2(baseWebLines[(i + 1) % baseWebLines.size()].p1() +
-                       fraction *
-                           (baseWebLines[(i + 1) % baseWebLines.size()].p2() -
-                            baseWebLines[(i + 1) % baseWebLines.size()].p1()));
+      QPoint point2(baseWebLines[(i + 1) % baseWebLines.size()].p1() +
+                    fraction *
+                        (baseWebLines[(i + 1) % baseWebLines.size()].p2() -
+                         baseWebLines[(i + 1) % baseWebLines.size()].p1()));
 
-      webLines_.append(QLine(midPoint1, midPoint2));
+      webLines_.append(QLine(point1, point2));
     }
   }
 }

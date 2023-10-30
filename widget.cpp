@@ -6,7 +6,7 @@
 
 #include "web.h"
 
-Widget::Widget(QWidget *parent) : QWidget(parent) {
+Widget::Widget(int lag, QWidget *parent) : QWidget(parent) {
   drawTimer_ = new QTimer(this);
   connect(drawTimer_, &QTimer::timeout, this, &Widget::StepDrawingWeb);
   isDrawingWeb_ = false;
@@ -14,7 +14,8 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
 
   web_ = new Web(this);
 
-  drawTimer_->start(500);
+  lag_ = lag;
+  drawTimer_->start(lag_);
 }
 
 Widget::~Widget() {}
@@ -26,7 +27,7 @@ void Widget::mousePressEvent(QMouseEvent *event) {
     isDrawingWeb_ = true;
     web_->SetWeb(windowRect_, cursorPosition_);
     repaint();
-    drawTimer_->start(500);
+    drawTimer_->start(lag_);
   }
 }
 
