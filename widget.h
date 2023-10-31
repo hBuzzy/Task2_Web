@@ -10,7 +10,6 @@ class Widget : public QWidget {
     public:
     Widget(QWidget *parent = nullptr);
     ~Widget();
-    int drawing_access;
 
     protected:
     void paintEvent(QPaintEvent*) override;
@@ -19,6 +18,7 @@ class Widget : public QWidget {
     void mouseReleaseEvent(QMouseEvent *event) override;
 
     private:
+    int drawing_access;
     Web *web;
     QPoint pos;
 };
