@@ -3,11 +3,23 @@
 
 #include <QWidget>
 
-class Widget : public QWidget {
-  Q_OBJECT
+class Web;
 
- public:
-  Widget(QWidget *parent = nullptr);
-  ~Widget();
+class Widget : public QWidget {
+    Q_OBJECT
+    public:
+    Widget(QWidget *parent = nullptr);
+    ~Widget();
+
+    protected:
+    void paintEvent(QPaintEvent*) override;
+    void mouseMoveEvent(QMouseEvent *event) override;
+    void mousePressEvent(QMouseEvent *event) override;
+    void mouseReleaseEvent(QMouseEvent *event) override;
+
+    private:
+    bool isDrawing_;
+    Web *web_;
+    QPoint pos_;
 };
 #endif  // WIDGET_H
