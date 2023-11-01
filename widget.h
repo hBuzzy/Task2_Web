@@ -2,10 +2,6 @@
 #define WIDGET_H
 
 #include <QWidget>
-#include <QPainter>
-#include <QMouseEvent>
-#include <QtMath>
-#include <QPen>
 
 #include "web.h"
 
@@ -17,6 +13,5 @@ public:
 
 private:
     Web *web;
-
 };
 #endif  // WIDGET_H

@@ -13,15 +13,15 @@ void Web::paintEvent(QPaintEvent *event) {
     if (isWebDrawing_ == true) {
         QPainter painter(this);
         int numLines = 12;
-        double radiusWeb = 0.75;
+        double smallRadiusWeb = 0.75;
         QVector<QPoint> centerPoints;
 
         for (int i = 0; i < numLines; i++) {
             double angleInDegrees = i * 360 / numLines;
-            QPoint pointOnCircle(centerPoint_.x() + kWebRadius * qCos(qDegreesToRadians(angleInDegrees)),
-                                 centerPoint_.y() + kWebRadius * qSin(qDegreesToRadians(angleInDegrees)));
-            QPoint centerLine(centerPoint_.x() + (kWebRadius * qCos(qDegreesToRadians(angleInDegrees))) * radiusWeb,
-                              centerPoint_.y() + (kWebRadius * qSin(qDegreesToRadians(angleInDegrees))) * radiusWeb);
+            QPoint pointOnCircle(centerPoint_.x() + webRadius * qCos(qDegreesToRadians(angleInDegrees)),
+                                 centerPoint_.y() + webRadius * qSin(qDegreesToRadians(angleInDegrees)));
+            QPoint centerLine(centerPoint_.x() + (webRadius * qCos(qDegreesToRadians(angleInDegrees))) * smallRadiusWeb,
+                              centerPoint_.y() + (webRadius * qSin(qDegreesToRadians(angleInDegrees))) * smallRadiusWeb);
             centerPoints.append(centerLine);
 
             painter.setPen(QPen(Qt::black, 3));
@@ -63,11 +63,11 @@ void Web::mouseMoveEvent(QMouseEvent *event) {
 }
 
 void Web::KeepCursorInWidget() {
-    if (centerPoint_.x() < kWebRadius) centerPoint_.setX(kWebRadius);
+    if (centerPoint_.x() < webRadius) centerPoint_.setX(webRadius);
 
-    if (centerPoint_.x() > width() - kWebRadius) centerPoint_.setX(width() - kWebRadius);
+    if (centerPoint_.x() > width() - webRadius) centerPoint_.setX(width() - webRadius);
 
-    if (centerPoint_.y() < kWebRadius) centerPoint_.setY(kWebRadius);
+    if (centerPoint_.y() < webRadius) centerPoint_.setY(webRadius);
 
-    if (centerPoint_.y() > height() - kWebRadius) centerPoint_.setY(height() - kWebRadius);
+    if (centerPoint_.y() > height() - webRadius) centerPoint_.setY(height() - webRadius);
 }
