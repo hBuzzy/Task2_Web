@@ -25,7 +25,7 @@ protected:
 private:
     QPoint centerPoint_;
     QVector<QPointF> webLines_;
-    bool drawing_;
+    bool isDrawing_;
 };
 
 #endif  // WEB_H

@@ -2,7 +2,7 @@
 
 #include <QPainterPath>
 
-Web::Web(QWidget* parent): QWidget(parent), drawing_(false) {
+Web::Web(QWidget* parent): QWidget(parent), isDrawing_(false) {
     setMouseTracking(true);
 }
 
@@ -11,7 +11,7 @@ void Web::paintEvent(QPaintEvent*) {
     painter.setRenderHint(QPainter::Antialiasing);
     painter.setPen(QPen(Qt::black, 4));
 
-    if (drawing_) {
+    if (isDrawing_) {
         for (const QPointF& point : webLines_) {
             QPointF lineStart = centerPoint_;
             QPointF lineEnd = point;
@@ -25,14 +25,14 @@ void Web::paintEvent(QPaintEvent*) {
 
 void Web::mousePressEvent(QMouseEvent* event) {
     if (event->button() == Qt::LeftButton) {
-        drawing_ = true;
+        isDrawing_ = true;
         centerPoint_ = event->pos();
         setCursor(Qt::CrossCursor);
     }
 }
 
 void Web::mouseMoveEvent(QMouseEvent* event) {
-    if (drawing_) {
+    if (isDrawing_) {
         QPoint newPoint = event->pos();
         QRect rect = this->rect();
         newPoint.setX(qMin(qMax(newPoint.x(), rect.left()), rect.right()));
@@ -45,7 +45,7 @@ void Web::mouseMoveEvent(QMouseEvent* event) {
 
 void Web::mouseReleaseEvent(QMouseEvent* event) {
     if (event->button() == Qt::LeftButton) {
-        drawing_ = false;
+        isDrawing_ = false;
         unsetCursor();
     }
 }
