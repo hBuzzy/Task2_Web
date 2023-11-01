@@ -7,7 +7,7 @@ class Web : public QWidget {
   Q_OBJECT
 public:
     explicit Web(QWidget *parent = nullptr);
-    const int webRadius_ = 50;
+    const int kWebRadius = 50;
 
 protected:
     void paintEvent(QPaintEvent *event);
@@ -19,7 +19,7 @@ private:
     QPoint centerPoint_;
     bool isWebDrawing_ = false;
 
-    void keepCursorInWidget();
+    void KeepCursorInWidget();
 };
 
 #endif  // WEB_H
