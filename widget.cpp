@@ -1,95 +1,49 @@
 #include "widget.h"
 
-#include <QMouseEvent>
 #include <QPainter>
 #include <QTimer>
-#include <QDir>
-#include <QDebug>
 
 Widget::Widget(QWidget *parent) : QWidget(parent) {
-  this->setStyleSheet("background-color: pink;");
+  this->setStyleSheet("background-color: #8cde8d;");
+
+  windowCenter_ = QPoint(rect().width()/2,rect().height()/2);
+  spider_ = new Spider(windowCenter_);
   timer_ = new QTimer(this);
-  AddToTimerInterval(1000);
-  windowRect_ = rect();
-  cursorImage_ = QPixmap("/Users/alepopa/Desktop/учеба/4 курс 1 семестр СПбГАСУ/Букунов. Qt for C++/Web/cursor.png");
-  cursor_ = QCursor(cursorImage_);
-  QPoint cursorPosition(0,0);
-  web_ = new Web(cursorPosition, windowRect_);
+  minInterval_ = 100;
+  timer_->start(minInterval_);
+  timer_->setInterval(minInterval_);
+
+  connect(timer_, &QTimer::timeout, [this](){ spider_->MoveSpider(); repaint(); });
 }
 
 Widget::~Widget() {}
 
-void Widget::resizeEvent(QResizeEvent *event) {
-  Q_UNUSED(event);
-  windowRect_ = rect();
-}
-
-void Widget::mousePressEvent(QMouseEvent *event) {
-  if (event->button() == Qt::LeftButton) {
-      cursorPosition_ = event->pos();
-      web_->SetCursorPosition(cursorPosition_);
-      web_->SetIsDrawingWeb(true);
-      setCursor(cursor_);
-      repaint();
-  }
-}
-
-void Widget::mouseMoveEvent(QMouseEvent *event) {
-  if (web_->GetIsDrawingWeb()) {
-      cursorPosition_ = event->pos();
-      HoldInFrame(cursorPosition_);
-      web_->SetCursorPosition(cursorPosition_);
-      repaint();
-  }
-}
-
-void Widget::mouseReleaseEvent(QMouseEvent *event) {
-  Q_UNUSED(event);
-
-  web_->SetIsDrawingWeb(false);
-  unsetCursor();
-}
-
-void Widget::paintEvent(QPaintEvent *event) {
+void Widget::paintEvent(QPaintEvent* event) {
   Q_UNUSED(event);
 
   QPainter painter(this);
+  QPen pen(Qt::white, 3, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin);
+  painter.setPen(pen);
   painter.setRenderHint(QPainter::Antialiasing);
-
-  if (web_->GetIsDrawingWeb()) {
-      web_->DrawWeb(&painter);
-  }
+  spider_->DrawWeb(&painter);
+  spider_->DrawSpider(&painter);
 }
 
+void Widget::keyPressEvent(QKeyEvent* event) {
+  int deltaTimerInterval = 50;
+
+  if (event->key() == Qt::Key_Up) {
+    AddToTimerInterval(-deltaTimerInterval);
+  } else if (event->key() == Qt::Key_Down) {
+    AddToTimerInterval(deltaTimerInterval);
+  }
+}
 
 void Widget::AddToTimerInterval(int milliseconds) {
-  int minInterval = 100;
-  int maxInterval = 1000;
-
+  int minInterval = minInterval_;
+  int maxInterval = 10 * minInterval_;
   int newInterval = timer_->interval() + milliseconds;
+
   newInterval = qBound(minInterval, newInterval, maxInterval);
   timer_->setInterval(newInterval);
-}
-
-void Widget::HoldInFrame(QPoint cursorPosition) {
-  if (cursorPosition.x() <= 0 and cursorPosition.y() >= 0) {
-    cursorPosition_.setX(0);
-  }
-  if (cursorPosition.x() >= 0 and cursorPosition.y() < 0) {
-    cursorPosition_.setY(0);
-  }
-  if (cursorPosition.x() < 0 and cursorPosition.y() < 0) {
-    cursorPosition_.setX(0);
-    cursorPosition_.setY(0);
-  }
-  if (cursorPosition.x() >= windowRect_.width() and cursorPosition.y() <= windowRect_.height()) {
-    cursorPosition_.setX(windowRect_.width());
-  }
-  if (cursorPosition.x() <= windowRect_.width() and cursorPosition.y() >= windowRect_.height()) {
-    cursorPosition_.setY(windowRect_.height());
-  }
-  if (cursorPosition.x() > windowRect_.width() and cursorPosition.y() > windowRect_.height()) {
-    cursorPosition_.setX(windowRect_.width());
-    cursorPosition_.setY(windowRect_.height());
-  }
 }
