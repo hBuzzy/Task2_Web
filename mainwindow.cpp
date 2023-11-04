@@ -3,8 +3,7 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui_(new Ui::MainWindow)
-{
+    , ui_(new Ui::MainWindow){
     ui_->setupUi(this);
     web_ = new Web(this);
     active_ = false;
@@ -15,7 +14,7 @@ void MainWindow::paintEvent(QPaintEvent *event) {
 }
 
 void MainWindow::mousePressEvent(QMouseEvent *event) {
-    if (!(event->button() & Qt::LeftButton)) return;
+    if (!(event->button() & Qt::LeftButton));
     active_ = true;
     repaint();
 }
@@ -30,7 +29,7 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event) {
 }
 
 void MainWindow::mouseReleaseEvent(QMouseEvent *event) {
-    if (!(event->button() & Qt::LeftButton)) return;
+    if (!(event->button() & Qt::LeftButton));
     active_ = false;
     repaint();
 }
