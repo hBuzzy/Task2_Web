@@ -9,20 +9,20 @@
 class Widget : public QWidget {
   Q_OBJECT
 
-public:
+ public:
   Widget(QWidget *parent = nullptr);
-  void drawWeb(QPoint, int, QPainter *);
+  void DrawWeb(QPoint, int, QPainter *);
   ~Widget();
 
-protected:
+ protected:
   virtual void mouseMoveEvent(QMouseEvent *event) override;
   virtual void mousePressEvent(QMouseEvent *event) override;
   void paintEvent(QPaintEvent *) override;
   void mouseReleaseEvent(QMouseEvent *event) override;
 
-private:
-  QPoint pos_;
-  QRect recta_;
-  bool mousePressed_;
+ private:
+  QPoint position_;
+  QRect widgetGeometry;
+  bool isMousePressed_;
 };
-#endif // WIDGET_H
+#endif  // WIDGET_H

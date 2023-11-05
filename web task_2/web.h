@@ -6,14 +6,13 @@
 #include <QPainter>
 class Web : public QObject {
   Q_OBJECT
-public:
+ public:
   explicit Web(QPoint, int, QPainter *, QObject *parent = nullptr);
 
-signals:
-private:
+ private:
   QPainter *painter_;
   QPoint center_;
   int radius_;
 };
 
-#endif // WEB_H
+#endif  // WEB_H

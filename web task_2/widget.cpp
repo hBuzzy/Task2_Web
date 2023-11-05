@@ -3,19 +3,20 @@
 #include "QListWidget"
 Widget::Widget(QWidget *parent) : QWidget(parent) {}
 
-void Widget::drawWeb(QPoint center, int radius, QPainter *painter) {
+void Widget::DrawWeb(QPoint center, int radius, QPainter *painter) {
   Web b(center, radius, painter);
 }
 
 Widget::~Widget() {}
 
 void Widget::paintEvent(QPaintEvent *event) {
-
-  if (mousePressed_ == true) {
-    QPoint center = pos_;
+  Q_UNUSED(event)
+  if (isMousePressed_ == true) {
+    QPoint center = position_;
 
     int radius;
-    if (center.y() >= height() / 2) {
+    int half = 2;
+    if (center.y() >= height() / half) {
       radius = height() - center.y();
     } else {
       radius = center.y();
@@ -31,31 +32,34 @@ void Widget::paintEvent(QPaintEvent *event) {
     QPainter painter;
     painter.begin(this);
 
-    drawWeb(pos_, radius, &painter);
+    DrawWeb(position_, radius, &painter);
     painter.end();
     update();
   }
 }
 
 void Widget::mouseReleaseEvent(QMouseEvent *event) {
-  mousePressed_ = false;
+  Q_UNUSED(event)
+  isMousePressed_ = false;
   this->unsetCursor();
 }
 
-void Widget::mouseMoveEvent(QMouseEvent *event) //
-{
+void Widget::mouseMoveEvent(QMouseEvent *event) {
   if (event->buttons() & Qt::LeftButton) {
-    pos_ = event->pos();
-    recta_ = this->rect();
-    mousePressed_ = true;
+    position_ = event->pos();
+    widgetGeometry = this->rect();
+    isMousePressed_ = true;
     this->setCursor(Qt::CrossCursor);
-    if (!recta_.contains(pos_)) {
-      pos_.setX(qMin(qMax(recta_.left(), pos_.x()), recta_.right()));
-      pos_.setY(qMin(qMax(recta_.top(), pos_.y()), recta_.bottom()));
-      QCursor::setPos(mapToGlobal(pos_));
+
+    if (!widgetGeometry.contains(position_)) {
+      position_.setX(qMin(qMax(widgetGeometry.left(), position_.x()),
+                          widgetGeometry.right()));
+      position_.setY(qMin(qMax(widgetGeometry.top(), position_.y()),
+                          widgetGeometry.bottom()));
+      QCursor::setPos(mapToGlobal(position_));
     }
   }
   repaint();
 }
 
-void Widget::mousePressEvent(QMouseEvent *event) { pos_ = event->pos(); }
+void Widget::mousePressEvent(QMouseEvent *event) { position_ = event->pos(); }
