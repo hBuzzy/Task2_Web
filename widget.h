@@ -21,7 +21,7 @@ class Widget : public QWidget {
  private slots:
   void updateThreshold(int value);
   void updateLineWidth(int value);
-  void setCursorStyle();  // Добавим полное объявление метода setCursorStyle
+  void setCursorStyle();
 
  private:
   bool drawing_;

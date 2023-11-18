@@ -4,10 +4,10 @@
 #include <QMouseEvent>
 #include <QCursor>
 #include <QtMath>
-#include <cmath> // Для использования M_PI
+#include <cmath>
 
 Widget::Widget(QWidget *parent) : QWidget(parent), drawing_(false) {
-  setMouseTracking(true); // Включить отслеживание мыши для mouseMoveEvent
+  setMouseTracking(true);
 }
 
 Widget::~Widget() {}
@@ -50,7 +50,6 @@ void Widget::mouseMoveEvent(QMouseEvent *event) {
   if (drawing_) {
     center_ = event->pos();
 
-    // Удерживать курсор в пределах окна виджета
     QPoint globalPos = mapToGlobal(center_);
     int newX = qBound(0, globalPos.x(), width() - 1);
     int newY = qBound(0, globalPos.y(), height() - 1);
@@ -68,12 +67,10 @@ void Widget::mouseReleaseEvent(QMouseEvent *event) {
 }
 
 void Widget::drawWeb(QPainter *painter, const QPoint &center) {
-  if (!drawing_) return; // Не рисовать, если не в режиме рисования
+  if (!drawing_) return;
 
-  // Установите стиль рисования
   painter->setPen(QPen(lineColor_, lineWidth_, Qt::SolidLine));
 
-  // Нарисуйте линии, представляющие паутину
   for (int i = 0; i < 8; ++i) {
     double angle = i * 45 * M_PI / 180.0;
     int x = center.x() + 50 * qCos(angle);
@@ -81,7 +78,6 @@ void Widget::drawWeb(QPainter *painter, const QPoint &center) {
     painter->drawLine(center, QPoint(x, y));
   }
 
-  // Соединим линии друг с другом для формирования паутины
   for (int i = 0; i < 8; ++i) {
     double angle1 = i * 45 * M_PI / 180.0;
     double angle2 = (i + 1) * 45 * M_PI / 180.0;
