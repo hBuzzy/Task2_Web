@@ -17,4 +17,6 @@ public:
 int pi = 180;
 int scale = 16;
 int scaleParam = 10;
+int scaleParamWidth = 3;
+int delParam;
 #endif // WEB_H

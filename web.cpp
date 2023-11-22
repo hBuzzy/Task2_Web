@@ -33,7 +33,7 @@ void Web::paint(QWidget *ctx) {
         {ctx->width() / scaleParamWidth * delParam, ctx->height()},
         {ctx->width() / scaleParamWidth, ctx->height()},
         p4,
-        {0, ctx->height() / 2},
+        {0, ctx->height() / delParam},
    };
 
     for (QPoint end : endPoints){
