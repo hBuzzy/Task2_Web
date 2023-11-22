@@ -14,5 +14,7 @@ public:
     void paint(QWidget *ctx);
     int getAngle(const QPoint& p1, const QPoint& p2);
 };
-
+int pi = 180;
+int scale = 16;
+int scaleParam = 10;
 #endif // WEB_H
