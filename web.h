@@ -1,14 +1,19 @@
+// web.h
 #ifndef WEB_H
 #define WEB_H
 
-#include <QObject>
+#include <QPainter>
+#include <QPoint>
+#include <QColor>
 
-class Web : public QObject {
-  Q_OBJECT
- public:
-  explicit Web(QObject *parent = nullptr);
+class Web {
+public:
+    Web();
 
- signals:
+    void draw(QPainter *painter, const QPoint &center, bool drawing, int lineWidth, const QColor &lineColor);
+
+private:
+    void drawLines(QPainter *painter, const QPoint &center);
 };
 
-#endif  // WEB_H
+#endif // WEB_H

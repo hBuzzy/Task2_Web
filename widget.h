@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QLabel>
 #include <QSlider>
+#include <web.h>
 
 class Widget : public QWidget {
   Q_OBJECT
@@ -24,10 +25,11 @@ class Widget : public QWidget {
   void setCursorStyle();
 
  private:
-  bool drawing_;
+  bool isdrawing_;
   QPoint center_;
   int lineWidth_;
   QColor lineColor_;
+  Web web_;
 
   void drawWeb(QPainter *painter, const QPoint &center);
 };
