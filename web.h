@@ -2,13 +2,16 @@
 #define WEB_H
 
 #include <QObject>
+#include <QPainter>
+#include <QPoint>
 
-class Web : public QObject {
-  Q_OBJECT
- public:
-  explicit Web(QObject *parent = nullptr);
+class Web
+{
+public:
+    Web();
 
- signals:
+    void drawWeb(QPainter *painter, const QPoint &StartPoint, bool isItDraw);
 };
 
 #endif  // WEB_H
+

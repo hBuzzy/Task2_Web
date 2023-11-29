@@ -15,7 +15,7 @@ SOURCES += \
 
 HEADERS += \
     web.h \
-    widget.h
+    widget.h \
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
