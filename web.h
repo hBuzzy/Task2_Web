@@ -1,12 +1,23 @@
 #ifndef WEB_H
 #define WEB_H
 
-#include <QObject>
+#include "widget.h"
 
-class Web : public QObject {
+class Web : public Widget {
   Q_OBJECT
  public:
-  explicit Web(QObject *parent = nullptr);
+  explicit Web(Widget *parent = nullptr);
+
+ public:
+  void DrawWeb(QPainter *painter);
+
+ private:
+  void mousePressEvent(QMouseEvent *event);
+  void paintEvent(QPaintEvent *event);
+  void mouseMoveEvent(QMouseEvent *event);
+  void mouseReleaseEvent(QMouseEvent *event);
+  void resizeEvent(QResizeEvent *event);
+  void keyPressEvent(QKeyEvent *event);
 
  signals:
 };
